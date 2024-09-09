@@ -1,4 +1,4 @@
-# API-Nautres
+# AR (AutoResponder) Express Bot Starter
 
 This starter template provides a foundation for building a **WhatsApp bot** using AutoResponder Web Server based on **Express**, designed to run in any environment that supports Node.js.
 
@@ -12,8 +12,8 @@ This starter template provides a foundation for building a **WhatsApp bot** usin
 
 2. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/api-nautres-starter.git
-   cd api-nautres-starter
+   git clone https://github.com/your-username/ar-express-bot-starter.git
+   cd ar-express-bot-starter
    ```
 
 3. Install dependencies:
