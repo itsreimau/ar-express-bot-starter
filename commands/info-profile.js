@@ -17,7 +17,7 @@ module.exports = {
         ]);
 
         try {
-            const caption = tools.msg.getText("command.profile.caption", userLanguage, {
+            const caption = await tools.msg.getText("command.profile.caption", userLanguage, {
                 sender: ctx.from.sender,
                 language: userLanguage,
                 premium: userPremium
