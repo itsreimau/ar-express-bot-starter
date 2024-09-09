@@ -1,0 +1,21 @@
+{
+  "name": "api-nautres",
+  "version": "1.0.0",
+  "description": "Starter template for WhatsApp bot based on AutoResponder Web Server using Express.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Muhamad Ikbal Maulana | ItsReimau",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/collection": "^2.1.0",
+    "axios": "1.7.7",
+    "bing-translate-api": "^4.0.2",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "lowline.ai": "^1.0.18",
+    "simpl.db": "^2.13.0"
+  }
+}
