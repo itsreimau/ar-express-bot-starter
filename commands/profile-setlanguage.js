@@ -27,7 +27,7 @@ module.exports = {
             const files = await fs.readdir(path.join(__dirname, '../assets/language/'));
             languages = files.map(file => file.replace('.json', ''));
         } catch (error) {
-            console.error("Error:", error);
+            console.error("[ar-express-bot-starter] Kesalahan:", error);
             return [await tools.msg.getText("general.error", userLanguage, {
                 error_message: error.message
             })];
@@ -45,7 +45,7 @@ module.exports = {
             await config.db.set(`user.${ctx.from.sender}.language`, text);
             return [await tools.msg.getText("command.setlanguage.success", text)];
         } catch (error) {
-            console.error("Error:", error);
+            console.error("[ar-express-bot-starter] Kesalahan:", error);
             return [await tools.msg.getText("general.error", userLanguage, {
                 error_message: error.message
             })];

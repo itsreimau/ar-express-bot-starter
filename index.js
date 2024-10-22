@@ -48,7 +48,7 @@ app.get("/api", (req, res) => {
 const loadCommands = async () => {
     try {
         const commandFiles = await fs.readdir(path.join(__dirname, "commands"));
-        console.log("Loading command...");
+        console.log("[ar-express-bot-starter] Loading command...");
         for (const file of commandFiles) {
             const commandModule = require(`./commands/${file}`);
             const {
@@ -68,9 +68,9 @@ const loadCommands = async () => {
                 execute
             });
         }
-        console.log("Commands loaded:", commandConfig.keys());
+        console.log("[ar-express-bot-starter] Commands loaded:", commandConfig.keys());
     } catch (error) {
-        console.error("Failed to load commands:", error);
+        console.error("[ar-express-bot-starter] Failed to load commands:", error);
     }
 };
 
@@ -184,7 +184,7 @@ app.post("/api", async (req, res) => {
             replies: formattedReplies
         });
     } catch (error) {
-        console.error("Error:", error);
+        console.error("[ar-express-bot-starter] Kesalahan:", error);
         return res.status(500).json({
             replies: [{
                 message: await tools.msg.getText("general.error", userLanguage, {
@@ -205,7 +205,7 @@ app.post("/api", async (req, res) => {
                     }]
                 });
             } catch (error) {
-                console.error("Error:", error);
+                console.error("[ar-express-bot-starter] Kesalahan:", error);
                 return res.json({
                     replies: [{
                         message: await tools.msg.getText("general.error", userLanguage, {
@@ -224,7 +224,7 @@ app.post("/api", async (req, res) => {
                     }]
                 });
             } catch (error) {
-                console.error("Error:", error);
+                console.error("[ar-express-bot-starter] Kesalahan:", error);
                 return res.json({
                     replies: [{
                         message: await tools.msg.getText("general.error", userLanguage, {
@@ -254,7 +254,7 @@ app.post("/api", async (req, res) => {
                     }]
                 });
             } catch (error) {
-                console.error("Error:", error);
+                console.error("[ar-express-bot-starter] Kesalahan:", error);
                 return res.json({
                     replies: [{
                         message: await tools.msg.getText("general.error", userLanguage, {

@@ -1,6 +1,6 @@
 {
   "name": "ar-express-bot-starter",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "description": "Starter template for WhatsApp bot based on AutoResponder Web Server using Express.",
   "main": "index.js",
   "scripts": {

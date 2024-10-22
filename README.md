@@ -8,7 +8,7 @@ This starter template provides a foundation for building a **WhatsApp bot** usin
 
 ## Getting Started
 
-1. [Fork](https://github.com/itsreimau/api-nautres/fork) this repository.
+1. [Fork](https://github.com/itsreimau/ar-express-bot-starter/fork) this repository.
 
 2. Clone the repository to your local machine:
    ```bash

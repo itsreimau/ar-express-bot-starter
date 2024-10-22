@@ -30,7 +30,7 @@ module.exports = {
 
             return [res.result];
         } catch (error) {
-            console.error("Error:", error);
+            console.error("[ar-express-bot-starter] Kesalahan:", error);
             return [await tools.msg.getText("general.error", userLanguage, {
                 error_message: error.message
             })];
