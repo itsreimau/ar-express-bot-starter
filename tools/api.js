@@ -1,4 +1,4 @@
-// That's a list of free APIs, use them wisely!
+// List of free APIs, use wisely!
 const APIs = {
     agatz: {
         baseURL: "https://api.agatz.xyz"
@@ -9,69 +9,34 @@ const APIs = {
     chiwa: {
         baseURL: "https://api.chiwa.my.id"
     },
-    deku: {
-        baseURL: "https://deku-rest-api.gleeze.com"
-    },
-    fasturl: {
-        baseURL: "https://fastrestapis.fasturl.cloud",
-        APIKey: "8f03c932-7c66-4194-a245-b3ba83e556a8"
-    },
-    firda: {
-        baseURL: "https://api.firda.uz"
-    },
-    helixia: {
-        baseURL: "https://api.helixia.xyz"
-    },
-    hercai: {
-        baseURL: "https://hercai.onrender.com"
-    },
-    imphnen_ai: {
-        baseURL: "https://imphnen-ai.vercel.app"
-    },
     itzpire: {
-        baseURL: "https://itzpire.site"
+        baseURL: "https://itzpire.com"
     },
-    kyuurzy: {
-        baseURL: "https://api.kyuurzy.site"
-    },
-    lolhuman: {
-        baseURL: "https://api.lolhuman.xyz"
-    },
-    manaxu_seven: {
-        baseURL: "https://manaxu-seven.vercel.app"
-    },
-    matbasing: {
-        baseURL: "https://matbasing.glitch.me"
-    },
-    miwudev: {
-        baseURL: "https://openapi.miwudev.my.id"
-    },
-    ngodingaja: {
-        baseURL: "https://api.ngodingaja.my.id"
+    lenwy: {
+        baseURL: "https://api-lenwy.vercel.app"
     },
     nyxs: {
         baseURL: "https://api.nyxs.pw"
     },
     ryzendesu: {
-        baseURL: "https://apis.ryzendesu.vip"
-    },
-    sanzy: {
-        baseURL: "https://api.sanzy.co"
+        baseURL: "https://api.ryzendesu.vip"
     },
     sandipbaruwal: {
         baseURL: "https://sandipbaruwal.onrender.com"
     },
-    ssa: {
-        baseURL: "https://ssa-api.vercel.app"
-    },
-    vkrdownloader: {
-        baseURL: "https://vkrdownloader.vercel.app"
-    },
     widipe: {
         baseURL: "https://widipe.com"
     },
-    yanzbotz: {
-        baseURL: "https://api.yanzbotz.my.id"
+    wudysoft: {
+        baseURL: "https://wudysoft.us.kg"
+    },
+    nexoracle: {
+        baseURL: "https://api.nexoracle.com",
+        APIKey: "free_key@maher_apis" // APIKey is provided by Maher Zubair
+    },
+    zenith: {
+        baseURL: "https://api-zenith.koyeb.app",
+        APIKey: "zenkey" // APIKey is provided by Zenith
     }
 };
 

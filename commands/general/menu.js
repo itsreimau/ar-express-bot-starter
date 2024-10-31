@@ -1,17 +1,10 @@
 module.exports = {
     name: "menu",
     aliases: ["help", "?"],
-    description: {
-        en: "Show menu",
-        id: "Menampilkan menu"
-    },
+    description: "Show menu",
     category: "main",
     permissions: [],
-    execute: async (ctx, config, tools) => {
-        const [userLanguage] = await Promise.all([
-            config.db.get(`user.${ctx.from.sender}.language`)
-        ]);
-
+    execute: async (ctx, config) => {
         try {
             const {
                 cmd
@@ -20,12 +13,12 @@ module.exports = {
                 ai: "🤖 AI",
                 profile: "👤 Profile",
                 tools: "🛠️ Tools",
-                info: "ℹ️ Info",
+                information: "ℹ️ Information",
                 "": "❓ No Category"
             };
 
             if (!cmd || cmd.size === 0) {
-                return [await tools.msg.getText("general.notFound", userLanguage)];
+                return ["No commands found."];
             }
 
             let body = "";
@@ -39,26 +32,25 @@ module.exports = {
                     addedCategories.add(category);
 
                     for (const command of commands.values()) {
-                        const description = command.description[userLanguage] || "No description.";
+                        const description = command.description || "No description.";
                         body += `> ${ctx.cmd.prefix}${command.name} - ${description}\n`;
                     }
                 }
             }
 
-            const caption = await tools.msg.getText("command.menu.caption", userLanguage, {
-                header: await tools.msg.getText("command.menu.header", userLanguage, {
-                    sender: ctx.from.sender
-                }),
-                body: body.trim(),
-                footer: await tools.msg.getText("command.menu.footer", userLanguage)
-            });
+            const header = `Hello ${ctx.from.sender}! Here is the list of available commands:`;
+            const footer = "👨‍💻 Developed by ItsReimau";
+
+            const caption = `${header}\n` +
+                "\n" +
+                `${body.trim()}\n` +
+                "\n" +
+                footer;
 
             return [caption];
         } catch (error) {
-            console.error("[ar-express-bot-starter] Kesalahan:", error);
-            return [await tools.msg.getText("general.error", userLanguage, {
-                error_message: error.message
-            })];
+            console.error("Kesalahan:", error);
+            return [`Error occurred: ${error.message}`];
         }
     }
 };

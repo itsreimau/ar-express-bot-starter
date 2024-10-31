@@ -20,7 +20,7 @@ async function getText(key, lc, replacements = {}) {
 
         return null;
     } catch (error) {
-        console.error("[ar-express-bot-starter] Kesalahan:", error);
+        console.error("Kesalahan:", error);
     }
 }
 
