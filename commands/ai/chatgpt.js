@@ -13,9 +13,7 @@ module.exports = {
             text
         } = ctx.input;
 
-        if (!text) {
-            return ["📌 Please provide an argument!"];
-        }
+        if (!text) return ["📌 Please provide an argument!"];
 
         try {
             const res = await _ai.generatePlaintext({

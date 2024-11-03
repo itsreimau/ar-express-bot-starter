@@ -141,22 +141,22 @@ app.post("/api", async (req, res) => {
     // The context in which the command will be used
     const ctx = {
         from: {
-            sender
+            sender,
+            isTest: isTestMessage
         },
         msg: {
-            message,
-            isTestMessage
+            content
         },
         group: {
-            isGroup,
-            groupParticipant
+            Participant: groupParticipant
         },
         cmd: {
             prefix,
-            commandName
+            name: commandName
         },
         input,
-        other: {
+        isGroup,
+        misc: {
             ruleId
         }
     };
@@ -168,10 +168,17 @@ app.post("/api", async (req, res) => {
     });
 
     // Retrieve or create user data in the database
-    const userDb = await config.db.get(`user.${ctx.from.sender}`) || {
-        premium: false
-    };
-    await config.db.set(`user.${ctx.from.sender}`, userDb);
+    let userDb;
+    if (!isTestMessage) {
+        userDb = await config.db.get(`user.${ctx.from.sender}`) || {
+            premium: false
+        };
+        await config.db.set(`user.${ctx.from.sender}`, userDb);
+    } else {
+        userDb = {
+            premium: false
+        };
+    }
 
     // Checks permissions and executes orders if appropriate
     try {
@@ -190,7 +197,7 @@ app.post("/api", async (req, res) => {
                 }]
             });
         }
-        if (command.permissions.includes("developer") && req.headers["secret"] !== "080207") {
+        if (command.permissions.includes("developer") && req.headers["secret"] !== "080207" && isTestMessage) {
             return res.status(200).json({
                 replies: [{
                     message: "⛔ You do not have permission to use this command."
@@ -216,7 +223,7 @@ app.post("/api", async (req, res) => {
     }
 
     // If the command is not found and the secret header matches, it allows the user to run direct code or shell commands
-    if ((!prefix || !command) && req.headers["secret"] === "080207") {
+    if ((!prefix || !command) && req.headers["secret"] === "080207" && isTestMessage) {
         // Evaluate expressions with the prefix "=>"
         if (message.startsWith("=> ")) {
             try {

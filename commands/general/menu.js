@@ -14,12 +14,12 @@ module.exports = {
                 profile: "👤 Profile",
                 tools: "🛠️ Tools",
                 information: "ℹ️ Information",
-                "": "❓ No Category"
+                misc: "❓ Miscellaneous"
             };
 
-            if (!cmd || cmd.size === 0) {
-                return ["No commands found."];
-            }
+            if (!cmd || cmd.size === 0) return ["No commands found."];
+
+            const header = `Hello ${ctx.from.sender}! Here is the list of available commands:`;
 
             let body = "";
             const addedCategories = new Set();
@@ -38,7 +38,6 @@ module.exports = {
                 }
             }
 
-            const header = `Hello ${ctx.from.sender}! Here is the list of available commands:`;
             const footer = "👨‍💻 Developed by ItsReimau";
 
             const caption = `${header}\n` +
