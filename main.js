@@ -130,7 +130,7 @@ app.post("/api", async (req, res) => {
         replies: []
     });
 
-    // Parse the message to get the command name and parameters
+    // Parse the message to get the command name and input
     const commandMessage = message.slice(prefix.length).trim();
     const commandName = commandMessage.split(" ")[0].toLowerCase();
     const input = {
@@ -148,7 +148,7 @@ app.post("/api", async (req, res) => {
             content
         },
         group: {
-            Participant: groupParticipant
+            participant: groupParticipant
         },
         cmd: {
             prefix,
