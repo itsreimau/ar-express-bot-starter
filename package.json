@@ -1,5 +1,5 @@
 {
-  "name": "ar-express-bot-starter",
+  "name": "ar-bot-starter",
   "version": "1.10.0",
   "description": "Starter template for WhatsApp bot based on AutoResponder Web Server using Express.",
   "main": "index.js",
@@ -13,6 +13,7 @@
     "axios": "1.7.7",
     "bing-translate-api": "^4.0.2",
     "body-parser": "^1.20.3",
+    "cfonts": "^3.3.0",
     "express": "^4.21.1",
     "lowline.ai": "^1.0.18",
     "simpl.db": "^2.13.0"

@@ -6,7 +6,7 @@ module.exports = {
     aliases: ["prof", "profil"],
     description: "Get profile information",
     category: "info",
-    permissions: profile
+    permissions: [],
     async execute(ctx, config) {
         const [userPremium] = await Promise.all([
             config.db.get(`user.${ctx.from.sender}.premium`)
