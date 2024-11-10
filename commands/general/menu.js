@@ -4,7 +4,7 @@ module.exports = {
     description: "Show menu",
     category: "main",
     permissions: [],
-    execute: async (ctx, config) => {
+    execute: async (ctx, config, tools) => {
         try {
             const {
                 cmd
@@ -19,37 +19,35 @@ module.exports = {
 
             if (!cmd || cmd.size === 0) return ["No commands found."];
 
-            const header = `Hello ${ctx.from.sender}! Here is the list of available commands:`;
+            let menuText =
+                `Hello ${ctx.from.sender}! Here is the list of available commands:\n` +
+                "\n";
 
-            let body = "";
-            const addedCategories = new Set();
+            for (const category of Object.keys(tags)) {
+                const categoryCommands = Array.from(cmd.values())
+                    .filter(command => command.category === category)
+                    .map(command => ({
+                        name: command.name,
+                        description: command.description || "No description."
+                    }));
 
-            for (const [category, categoryName] of Object.entries(tags)) {
-                const commands = cmd.filter(command => command.category === category);
+                if (categoryCommands.length > 0) {
+                    menuText += `◆ ${tags[category]}\n`;
 
-                if (commands.size > 0 && !addedCategories.has(category)) {
-                    body += `\n${categoryName}\n`;
-                    addedCategories.add(category);
+                    categoryCommands.forEach(cmd => {
+                        menuText += `> ${ctx.cmd.prefix + cmd.name} - ${cmd.description}\n`;
+                    });
 
-                    for (const command of commands.values()) {
-                        const description = command.description || "No description.";
-                        body += `> ${ctx.cmd.prefix}${command.name} - ${description}\n`;
-                    }
+                    menuText += "\n";
                 }
             }
 
-            const footer = "👨‍💻 Developed by ItsReimau";
+            menuText += "👨‍💻 Developed by ItsReimau";
 
-            const caption = `${header}\n` +
-                "\n" +
-                `${body.trim()}\n` +
-                "\n" +
-                footer;
-
-            return [caption];
+            return [menuText];
         } catch (error) {
-            console.error("Kesalahan:", error);
-            return [`Error occurred: ${error.message}`];
+            console.error("Error:", error);
+            return [`⚠ An error occurred: ${error.message}`];
         }
     }
 };

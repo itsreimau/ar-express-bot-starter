@@ -7,20 +7,21 @@ module.exports = {
     description: "Get profile information",
     category: "info",
     permissions: [],
-    async execute(ctx, config) {
+    async execute(ctx, config, tools) {
         const [userPremium] = await Promise.all([
             config.db.get(`user.${ctx.from.sender}.premium`)
         ]);
 
         try {
-            const caption = `👤 Profile:\n` +
+            const caption =
+                `👤 Profile:\n` +
                 `> Sender: ${ctx.from.sender}\n` +
                 `> Premium: ${userPremium ? "Premium" : "Freemium"}`;
 
             return [caption];
         } catch (error) {
-            console.error("Kesalahan:", error);
-            return [`Error occurred: ${error.message}`];
+            console.error("Error:", error);
+            return [`⚠ An error occurred: ${error.message}`];
         }
     }
 };

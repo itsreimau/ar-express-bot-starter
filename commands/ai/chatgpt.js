@@ -8,7 +8,7 @@ module.exports = {
     description: "Chat with AI",
     category: "ai",
     permissions: [],
-    async execute(ctx, config) {
+    async execute(ctx, config, tools) {
         const {
             text
         } = ctx.input;
@@ -16,9 +16,26 @@ module.exports = {
         if (!text) return ["📌 Please provide an argument!"];
 
         try {
-            const res = await _ai.generatePlaintext({
-                prompt: text
+            let chatThread = config.db.get(`user.${ctx.from.sender}.chatThread`) || [];
+
+            chatThread.push({
+                name: ctx.from.sender,
+                role: "user",
+                content: text,
             });
+
+            const res = await _ai.suggestChatResponse({
+                intent: text,
+                chat_thread: chatThread
+            });
+
+            chatThread.push({
+                name: "Bot",
+                role: "bot",
+                content: res.result,
+            });
+
+            config.db.set(`user.${ctx.from.sender}.chatThread`, chatThread);
 
             return [res.result];
         } catch (error) {

@@ -43,9 +43,14 @@ app.get("/", (req, res) => {
 
 // Endpoint GET untuk /api (hanya menerima POST request)
 app.get("/api", (req, res) => {
-    res.status(405).json({
-        error: "Method Not Allowed",
-        message: "Only POST requests are allowed"
+    res.status(400).json({
+        replies: [{
+                message: "Error ❌"
+            },
+            {
+                message: "JSON data is incomplete. Was the request sent by AutoResponder?"
+            }
+        ]
     });
 });
 
@@ -82,7 +87,6 @@ const loadCommands = async () => {
                         execute
                     });
 
-                    // Log each command as it's loaded
                     console.log(`Loaded command: ${name} (Category: ${category.name})`);
                 }
             }
@@ -121,7 +125,7 @@ app.post("/api", async (req, res) => {
     } = data.query;
 
     // Message handling is based on whether the message comes from a group or private
-    const sender = isGroup ? groupParticipant : rawSender;
+    const sender = groupParticipant ? groupParticipant : rawSender;
 
     // List of supported prefixes
     const prefixList = ["!", ".", "/"];
@@ -145,11 +149,12 @@ app.post("/api", async (req, res) => {
             isTest: isTestMessage
         },
         msg: {
-            content
+            content: message
         },
-        group: {
-            participant: groupParticipant
-        },
+        group: isGroup ? {
+            participant: groupParticipant,
+            name: rawSender
+        } : null,
         cmd: {
             prefix,
             name: commandName
@@ -288,7 +293,5 @@ app.post("/api", async (req, res) => {
 // Loading commands and starting the server
 loadCommands().then(() => {
     const port = 1334;
-    app.listen(port, () => {
-        console.log(`Server started on port ${port}`);
-    });
+    app.listen(port, () => console.log(`Server started on port ${port}`));
 });
