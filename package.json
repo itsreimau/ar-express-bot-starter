@@ -1,19 +1,35 @@
 {
-  "name": "ar-bot-starter",
-  "version": "1.10.5",
+  "name": "ar-express-bot-starter",
+  "version": "1.11.0",
   "description": "Starter template for WhatsApp bot based on AutoResponder Web Server using Express.",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
+  "directories": {
+    "commands": "commands",
+    "tools": "tools"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsreimau/ar-express-bot-starter.git"
+  },
+  "keywords": [
+    "autoresponder"
+  ],
   "author": "Muhamad Ikbal Maulana | ItsReimau",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itsreimau/ar-express-bot-starter/issues"
+  },
+  "homepage": "https://github.com/itsreimau/ar-express-bot-starter#readme",
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
+    "axios": "1.7.8",
     "body-parser": "^1.20.3",
     "cfonts": "^3.3.0",
     "express": "^4.21.1",
-    "lowline.ai": "^1.0.18",
     "simpl.db": "^2.13.0"
   }
 }

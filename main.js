@@ -97,7 +97,6 @@ const loadCommands = async () => {
     }
 };
 
-
 // Handler for POST requests in /api
 app.post("/api", async (req, res) => {
     const data = req.body;
