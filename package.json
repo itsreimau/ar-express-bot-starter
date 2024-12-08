@@ -1,6 +1,6 @@
 {
   "name": "ar-express-bot-starter",
-  "version": "1.11.1",
+  "version": "1.12.0",
   "description": "Starter template for WhatsApp bot based on AutoResponder Web Server using Express.",
   "main": "index.js",
   "directories": {
@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ."
+    "start": "node .",
+    "start:pm2": "pm2 start ./index.js --name \"ar-express-bot-starter\""
   },
   "repository": {
     "type": "git",
