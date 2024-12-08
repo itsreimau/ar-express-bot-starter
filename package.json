@@ -27,10 +27,10 @@
   "homepage": "https://github.com/itsreimau/ar-express-bot-starter#readme",
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
-    "axios": "1.7.8",
+    "axios": "1.7.9",
     "body-parser": "^1.20.3",
     "cfonts": "^3.3.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "simpl.db": "^2.13.0"
   }
 }
