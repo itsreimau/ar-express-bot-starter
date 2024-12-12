@@ -1,10 +1,10 @@
 // Required modules and dependencies
 const express = require("express");
 const bodyParser = require("body-parser");
-const SimplDB = require("simpl.db");
 const {
     Collection
 } = require("@discordjs/collection");
+const SimplDB = require("simpl.db");
 const fs = require("fs/promises");
 const path = require("path");
 const tools = require("./tools/exports.js");
@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
     res.send("Hello from AutoResponder!");
 });
 
-// Endpoint GET untuk /api (hanya menerima POST request)
+// GET endpoint for /api (only accepts POST requests)
 app.get("/api", (req, res) => {
     res.status(400).json({
         replies: [{
@@ -54,7 +54,7 @@ app.get("/api", (req, res) => {
     });
 });
 
-// Function to load all commands from 'commands' folder with categories
+// Function to load all commands from the 'commands' folder
 const loadCommands = async () => {
     try {
         const commandCategories = await fs.readdir(path.join(__dirname, "commands"), {
@@ -291,6 +291,6 @@ app.post("/api", async (req, res) => {
 
 // Loading commands and starting the server
 loadCommands().then(() => {
-    const port = 1334;
+    const port = 3000;
     app.listen(port, () => console.log(`Server started on port ${port}`));
 });
