@@ -1,4 +1,5 @@
 // Required modules and dependencies
+require("dotenv").config();
 const pkg = require("./package.json");
 const CFonts = require("cfonts");
 
