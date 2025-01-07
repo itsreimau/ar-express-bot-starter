@@ -21,6 +21,10 @@ const config = {
     db: databaseConfig
 };
 
+// Create a database
+const dbFile = path.join(__dirname, "database.json");
+fs.access(dbFile).catch(() => fs.writeFile(dbFile, JSON.stringify({}), "utf8"));
+
 // Create an express application
 const app = express();
 
@@ -114,14 +118,29 @@ app.post("/api", async (req, res) => {
         });
     }
 
+    const isDebug = req.headers["DEBUG"] === "080207";
+
     const {
         isGroup,
         groupParticipant,
         sender: rawSender,
         message,
         ruleId,
-        isTestMessage
+        isTestMessage,
+        isDebug
     } = data.query;
+
+    // Log all incoming messages, including private and group
+    if (isGroup) {
+        console.log(`Incoming group message: Group: ${rawSender}, Participant: ${groupParticipant}, Message: ${message}`);
+    } else {
+        console.log(`Incoming private message from: ${rawSender}, Message: ${message}`);
+    }
+
+    // If message is marked as secret, handle it accordingly
+    if (isDebug) {
+        console.log(`Secret message detected from ${rawSender}`);
+    }
 
     // Message handling is based on whether the message comes from a group or private
     const sender = groupParticipant ? groupParticipant : rawSender;
@@ -141,30 +160,6 @@ app.post("/api", async (req, res) => {
         param: commandMessage.split(" ").slice(1)
     };
 
-    // The context in which the command will be used
-    const ctx = {
-        from: {
-            sender,
-            isTest: isTestMessage
-        },
-        msg: {
-            content: message
-        },
-        group: isGroup ? {
-            participant: groupParticipant,
-            name: rawSender
-        } : null,
-        cmd: {
-            prefix,
-            name: commandName
-        },
-        input,
-        isGroup,
-        misc: {
-            ruleId
-        }
-    };
-
     // Search for commands by name or alias
     const command = config.cmd.get(commandName) || [...config.cmd.values()].find(cmd => cmd.aliases.includes(commandName));
     if (!command) return res.status(200).json({
@@ -173,20 +168,24 @@ app.post("/api", async (req, res) => {
 
     // Retrieve or create user data in the database
     let userDb;
-    if (!isTestMessage) {
-        userDb = await config.db.get(`user.${ctx.from.sender}`) || {
+
+    if (isTestMessage) {
+        userDb = {
+            premium: true
+        };
+    } else if (/^[\d+\-]+$/.test(sender)) {
+        userDb = await config.db.get(`user.${sender}`) || {
             premium: false
         };
-        await config.db.set(`user.${ctx.from.sender}`, userDb);
+        await config.db.set(`user.${sender}`, userDb);
     } else {
         userDb = {
             premium: false
         };
     }
 
-    // Checks permissions and executes orders if appropriate
+    // Check command permissions
     try {
-        // Check command permissions
         if (command.permissions.includes("group") && !isGroup) {
             return res.status(200).json({
                 replies: [{
@@ -201,20 +200,51 @@ app.post("/api", async (req, res) => {
                 }]
             });
         }
-        if (command.permissions.includes("developer") && req.headers["secret"] !== "080207" && isTestMessage) {
+        if (command.permissions.includes("developer") && !isDebug && isTestMessage) {
             return res.status(200).json({
                 replies: [{
                     message: "⛔ You do not have permission to use this command."
                 }]
             });
         }
+        if (command.permissions.includes("premium") && userDb.premium) {
+            return res.status(200).json({
+                replies: [{
+                    message: "⛔ This command can only be used in private chats."
+                }]
+            });
+        }
+
+        const ctx = {
+            from: {
+                sender,
+                isTest: isTestMessage,
+                isPremium: userDb.premium
+            },
+            msg: {
+                content: message
+            },
+            group: isGroup ? {
+                participant: groupParticipant,
+                name: rawSender
+            } : null,
+            cmd: {
+                prefix,
+                name: commandName
+            },
+            input,
+            isGroup,
+            misc: {
+                ruleId
+            }
+        };
 
         // Execute the command and return the results
         const output = await command.execute(ctx, config, tools);
         const replies = Array.isArray(output) ? output : [output];
         return res.status(200).json({
-            replies: replies.map(message => ({
-                message
+            replies: replies.map(msg => ({
+                message: msg
             }))
         });
     } catch (error) {
@@ -226,9 +256,8 @@ app.post("/api", async (req, res) => {
         });
     }
 
-    // If the command is not found and the secret header matches, it allows the user to run direct code or shell commands
-    if ((!prefix || !command) && req.headers["secret"] === "080207" && isTestMessage) {
-        // Evaluate expressions with the prefix "=>"
+    // Debug command evaluation for direct code or shell execution
+    if ((!prefix || !command) && isDebug && isTestMessage) {
         if (message.startsWith("=> ")) {
             try {
                 const code = message.slice(2).trim();
@@ -246,9 +275,7 @@ app.post("/api", async (req, res) => {
                     }]
                 });
             }
-        }
-        // Evaluate asynchronous code with the prefix "==>"
-        else if (message.startsWith("==> ")) {
+        } else if (message.startsWith("==> ")) {
             try {
                 const code = message.slice(3).trim();
                 const result = await eval(`(async () => { ${code} })()`);
@@ -265,13 +292,10 @@ app.post("/api", async (req, res) => {
                     }]
                 });
             }
-        }
-        //  Execute shell commands with prefix "$"
-        else if (message.startsWith("$ ")) {
+        } else if (message.startsWith("$ ")) {
             try {
                 const command = message.slice(2).trim();
                 const output = await util.promisify(exec)(command);
-
                 return res.json({
                     replies: [{
                         message: output.stdout || output.stderr
