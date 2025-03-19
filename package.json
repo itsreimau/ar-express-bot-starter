@@ -1,6 +1,6 @@
 {
   "name": "ar-express-bot-starter",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Starter template for WhatsApp bot based on AutoResponder Web Server using Express.",
   "main": "index.js",
   "directories": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/itsreimau/ar-express-bot-starter#readme",
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
-    "axios": "1.7.9",
+    "axios": "1.8.3",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "cfonts": "^3.3.0",
