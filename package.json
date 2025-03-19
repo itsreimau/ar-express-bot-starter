@@ -27,7 +27,7 @@
   "homepage": "https://github.com/itsreimau/ar-express-bot-starter#readme",
   "dependencies": {
     "@discordjs/collection": "^2.1.1",
-    "axios": "1.8.3",
+    "axios": "1.8.4",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "cfonts": "^3.3.0",

@@ -1,6 +1,6 @@
 const APIs = {
-    btch: {
-        baseURL: "https://btch.us.kg"
+    fast: {
+        baseURL: "https://fastrestapis.fasturl.cloud"
     }
 };
 

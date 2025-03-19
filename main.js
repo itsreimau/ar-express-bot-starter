@@ -126,8 +126,7 @@ app.post("/api", async (req, res) => {
         sender: rawSender,
         message,
         ruleId,
-        isTestMessage,
-        isDebug
+        isTestMessage
     } = data.query;
 
     // Log all incoming messages, including private and group
