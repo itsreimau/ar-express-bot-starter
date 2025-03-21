@@ -1,17 +1,17 @@
 // Required modules and dependencies
 const express = require("express");
-const bodyParser = require("body-parser");
 const {
     Collection
 } = require("@discordjs/collection");
 const SimplDB = require("simpl.db");
-const fs = require("fs/promises");
-const path = require("path");
+const fs = require("node:fs/promises");
+const bodyParser = require("body-parser");
+const path = require("node:path");
 const tools = require("./tools/exports.js");
 const {
     exec
-} = require("child_process");
-const util = require("util");
+} = require("node:child_process");
+const util = require("node:util");
 
 // Set configuration
 const commandConfig = new Collection();
