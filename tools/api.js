@@ -1,3 +1,4 @@
+// List of free APIs, use wisely!
 const APIs = {
     fast: {
         baseURL: "https://fastrestapis.fasturl.cloud"
