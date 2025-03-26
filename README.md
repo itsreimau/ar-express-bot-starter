@@ -1,39 +1,43 @@
-# AR (AutoResponder) Express Bot Starter
+# AR (AutoResponder) Express Bot Starter  
 
-This starter template provides a foundation for building a **WhatsApp bot** using AutoResponder Web Server based on **Express**, designed to run in any environment that supports Node.js.
+This starter template provides a foundation for building a **WhatsApp bot** using AutoResponder Web Server based on **Express**, designed to run in any environment that supports Node.js.  
 
-## Features
+⚠️ **This repository has been archived and is no longer maintained.**  
 
-- **[Express](https://expressjs.com/)**: Utilizes the Express framework to handle the web server for receiving and sending WhatsApp messages via AutoResponder.
+## Features  
 
-## Getting Started
+- **[Express](https://expressjs.com/)**: Utilizes the Express framework to handle the web server for receiving and sending WhatsApp messages via AutoResponder.  
 
-1. [Fork](https://github.com/itsreimau/ar-express-bot-starter/fork) this repository.
+## Getting Started  
 
-2. Clone the repository to your local machine:
-   ```bash
-   git clone https://github.com/your-username/ar-express-bot-starter.git
-   cd ar-express-bot-starter
-   ```
+1. **Fork** this repository (if necessary).  
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+2. **Clone** the repository to your local machine:  
+   ```bash  
+   git clone https://github.com/your-username/ar-express-bot-starter.git  
+   cd ar-express-bot-starter  
+   ```  
 
-4. Start the bot:
+3. **Install dependencies**:  
+   ```bash  
+   npm install  
+   ```  
 
-   You can run the bot directly with:
-   ```bash
-   node index.js
-   ```
+4. **Set up configuration variables**:  
+   Rename the `.env.example` file to `.env` and update the configurations accordingly.  
 
-5. Your WhatsApp bot should now be running and ready to use!
+5. **Start the bot**:  
+   Run the bot using:  
+   ```bash  
+   node index.js  
+   ```  
 
-## Contributing
+6. **Your WhatsApp bot should now be running and ready to use!**  
 
-Feel free to contribute by opening issues or pull requests. Your feedback and contributions are highly appreciated.
+## Contributing  
 
-## License
+Since this repository has been archived, contributions such as issues and pull requests are no longer accepted.  
 
-This project is licensed under the [MIT License](LICENSE).
+## License  
+
+This project is licensed under the [MIT License](LICENSE).  
